@@ -1,0 +1,3 @@
+Hello World! This is a Sample text file.
+Java is powerful. Programming is fun.
+My name is Tsaqif Razin
