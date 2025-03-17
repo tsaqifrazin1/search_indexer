@@ -1,9 +1,6 @@
 package test.csg.search_indexer;
 
-import test.csg.search_indexer.indexing.IndexingEngine;
-import test.csg.search_indexer.indexing.IndexingRule;
-import test.csg.search_indexer.indexing.LongWordsRule;
-import test.csg.search_indexer.indexing.UpperCaseWordCountRule;
+import test.csg.search_indexer.indexing.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +17,7 @@ public class SearchIndexer {
             return;
         }
 
-        List<IndexingRule> rules = Arrays.asList(
-                new UpperCaseWordCountRule(),
-                new LongWordsRule()
-        );
+        List<IndexingRule> rules = IndexingRuleFactory.loadAllRules();
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         List<Callable<String>> tasks = new ArrayList<>();

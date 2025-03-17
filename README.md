@@ -1,3 +1,4 @@
+/*************  ✨ Codeium Command 🌟  *************/
 # Search Indexer
 
 The Search Indexer is a Java-based application designed to process text files and apply a set of indexing rules to analyze the content. The application can be run via the command line and processes each file specified in the command-line arguments.
@@ -12,6 +13,7 @@ The Search Indexer is a Java-based application designed to process text files an
 - **`IndexingEngine`**: Responsible for processing files and applying indexing rules.
 - **`FileProcessor`**: Utility class for reading words from files.
 - **`IndexingRule`**: Interface for defining different indexing rules.
+- **`IndexingRuleFactory`**: Creates instances of rules implementing the `IndexingRule` interface using Reflections.
 - **`UpperCaseWordCountRule`**: Counts words starting with an uppercase letter.
 - **`LongWordsRule`**: Lists words longer than five characters.
 
@@ -69,23 +71,14 @@ To add a new indexing rule to the Search Indexer, follow these steps:
    }
    ```
 
-2. **Register the Rule**:
-   - In the `main` method of the `SearchIndexer` class, add an instance of your new rule to the list of rules passed to the `IndexingEngine`.
-
-   ```java
-   List<IndexingRule> rules = Arrays.asList(
-       new UpperCaseWordCountRule(),
-       new LongWordsRule(),
-       new CustomRule() // Add your new rule here
-   );
-   ```
-
-3. **Build and Run**:
+2. **Build and Run**:
    - Build the project using Maven and run the application with the desired text files as arguments to see your new rule in action.
 
     ```bash
     # Example command to run the Search Indexer on sample files
+    
     mvn clean package
+
     java -jar target/search_indexer-1.0-SNAPSHOT.jar data/file1.txt data/file2.html
     ```
 
@@ -94,3 +87,5 @@ To add a new indexing rule to the Search Indexer, follow these steps:
 - Java 17
 - Maven
 
+
+/******  e9c46b64-4f29-4af4-b5a8-0a77b995b58e  *******/
