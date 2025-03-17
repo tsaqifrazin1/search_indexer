@@ -9,13 +9,14 @@ import java.util.List;
 public class IndexingEngine {
     private static final String DEFAULT_DIRECTORY = "./data/";
 
-    private final List<IndexingRule> rules;
+    private final IndexingRule rule;
 
-    public IndexingEngine(List<IndexingRule> rules) {
-        this.rules = rules;
+    public IndexingEngine(IndexingRule rule) {
+        this.rule = rule;
     }
 
-    public void processFile(String filePath) {
+    public String processFile(String filePath) {
+        String result;
         try {
             Path fullPath = Paths.get(filePath).isAbsolute()
                     ? Paths.get(filePath)
@@ -23,15 +24,13 @@ public class IndexingEngine {
 
             List<String> words = FileProcessor.readWordsFromFile(fullPath.toString());
 
-            System.out.println("Processing file: " + fullPath);
-            for (IndexingRule rule : rules) {
-                System.out.println(rule.getTitle() + " : " + rule.apply(words));
-            }
-            System.out.println();
+            result = rule.apply(words);
         } catch (Exception e) {
-            System.err.println("Error processing file: " + filePath + " - " + e.getMessage());
-            e.printStackTrace();
+            result = "Error processing file: " + filePath + " - " + e.getMessage();
         }
+
+        return result;
+
     }
 }
 

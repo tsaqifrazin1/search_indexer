@@ -7,8 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FileProcessor {
-    public static List<String> readWordsFromFile(String filePath) throws IOException {
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        return Arrays.asList(content.split("\\W+"));
+    public static List<String> readWordsFromFile(String filePath) {
+        try{
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            return Arrays.asList(content.split("\\W+"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

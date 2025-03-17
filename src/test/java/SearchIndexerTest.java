@@ -39,22 +39,20 @@ class SearchIndexerTest {
         SearchIndexer.main(new String[]{TEST_FILE});
 
         String output = outContent.toString();
-        String errorOutput = errContent.toString();
 
-        assertTrue(output.contains("Uppercase words count : 12"));
-        assertTrue(output.contains("Long Word (>5 chars) count : [Another]"));
+        assertTrue(output.contains("Processed file [testFile.txt] with rule: Uppercase words count and result: 12"));
+        assertTrue(output.contains("Processed file [testFile.txt] with rule: Long Word (>5 chars) count and result: [Another]"));
 
-        assertTrue(errorOutput.isEmpty(), "There should be no errors");
     }
 
     @Test
     void testInvalidSearchIndexer() {
         SearchIndexer.main(new String[]{"nonexistent.txt"});
 
-        String errorOutput = errContent.toString();
+        String output = outContent.toString();
 
-        assertTrue(!errorOutput.isEmpty(), "There should be errors");
-        assertTrue(errorOutput.contains("Error processing file: nonexistent.txt - ./data/nonexistent.txt"));
+        assertTrue(output.contains("Processed file [nonexistent.txt] with rule: Uppercase words count and result: Error processing file: nonexistent.txt - java.nio.file.NoSuchFileException: ./data/nonexistent.txt"));
+        assertTrue(output.contains("Processed file [nonexistent.txt] with rule: Long Word (>5 chars) count and result: Error processing file: nonexistent.txt - java.nio.file.NoSuchFileException: ./data/nonexistent.txt"));
     }
 
     @Test
@@ -62,12 +60,10 @@ class SearchIndexerTest {
         SearchIndexer.main(new String[]{TEST_FILE, "nonexistent.txt"});
 
         String output = outContent.toString();
-        String errorOutput = errContent.toString();
 
-        assertTrue(output.contains("Uppercase words count : 12"));
-        assertTrue(output.contains("Long Word (>5 chars) count : [Another]"));
-
-        assertTrue(!errorOutput.isEmpty(), "There should be errors");
-        assertTrue(errorOutput.contains("Error processing file: nonexistent.txt - ./data/nonexistent.txt"));
+        assertTrue(output.contains("Processed file [testFile.txt] with rule: Uppercase words count and result: 12"));
+        assertTrue(output.contains("Processed file [testFile.txt] with rule: Long Word (>5 chars) count and result: [Another]"));
+        assertTrue(output.contains("Processed file [nonexistent.txt] with rule: Uppercase words count and result: Error processing file: nonexistent.txt - java.nio.file.NoSuchFileException: ./data/nonexistent.txt"));
+        assertTrue(output.contains("Processed file [nonexistent.txt] with rule: Long Word (>5 chars) count and result: Error processing file: nonexistent.txt - java.nio.file.NoSuchFileException: ./data/nonexistent.txt"));
     }
 }
